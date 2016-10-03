@@ -20,7 +20,7 @@ public class ResultActivity extends Activity {
         TextView textResult = (TextView) findViewById(R.id.textResult);
         Bundle b = getIntent().getExtras();
         int score = b.getInt("score");
-        textResult.setText("Your score is " + score + "/5");
+        textResult.setText("Your score is " + score + "/7");
     }
 
     public void restart(View view){

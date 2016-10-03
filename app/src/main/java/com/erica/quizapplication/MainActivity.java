@@ -6,16 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends Activity {
 
     List<Question> questionsList;
-    int score = 0;
-    int round = 1;
-    int ID;
+    List<Integer> usedIDs = new ArrayList<Integer>();
+    int score;
+    int round;
+    int ID = 0;
     Question currentQuestion;
     TextView txtQuestion, times, scored, rounds;
     Button btn1, btn2, btn3, btn4;
@@ -25,8 +26,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initialize the view
-        init();
 
         //Initialize the database
         final DbHelper dbHelper=new DbHelper(this);
@@ -74,10 +73,11 @@ public class MainActivity extends Activity {
                 getAnswer(btn4.getText().toString());
             }
         });
+
     }
 
-    private void init() {
-    }
+   // private void init() {
+    //}
 
     private void getAnswer(String Answer) {
         if(currentQuestion.getAnswer().equals(Answer)){
@@ -85,7 +85,7 @@ public class MainActivity extends Activity {
             scored.setText(String.valueOf(score));
         }
 
-        if(round<4){
+        if(round<7){
             currentQuestion=questionsList.get(ID);
             setQuestionView();
         }else{
@@ -96,9 +96,8 @@ public class MainActivity extends Activity {
             startActivity(intent);
             finish();
         }
+        //round++;
 
-        round++;
-        rounds.setText(String.valueOf(round));
     }
 
 
@@ -109,7 +108,32 @@ public class MainActivity extends Activity {
         btn2.setText(currentQuestion.getOption2());
         btn3.setText(currentQuestion.getOption3());
         btn4.setText(currentQuestion.getOption4());
-        ID++;
+
+        round++;
+        rounds.setText(String.valueOf(round));
+
+        if (round == 1){
+            ID = (int)(Math.random()* 3)+1;
+        }
+        if (round == 2){
+            ID = (int)(Math.random()* 3)+4;
+        }
+        if (round == 3){
+            ID = (int)(Math.random()* 3)+7;
+        }
+        if (round == 4){
+            ID = (int)(Math.random()* 3)+10;
+        }
+        if (round == 5){
+            ID = (int)(Math.random()* 3)+13;
+        }
+        if (round == 6){
+            ID = (int)(Math.random()* 3)+16;
+        }
+        if (round == 7){
+           ID = (int)(Math.random()* 3)+19;
+        }
+
     }
 }
 

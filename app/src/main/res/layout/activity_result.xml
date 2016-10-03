@@ -24,4 +24,8 @@
         android:onClick="restart"
         android:text="play again" />
 
+
+
+
+
 </LinearLayout>
