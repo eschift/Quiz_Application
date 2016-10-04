@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +13,18 @@ import java.util.List;
  */
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 7;
-
-    // Database Name
-    private static final String DATABASE_NAME = "Quiz";
-
-    // Table name
-    private static final String TABLE_QUESTION = "question";
+    private static final int DATABASE_VERSION = 12;
+    private static final String DATABASE_NAME = "Quiz";// Database Name
+    private static final String TABLE_QUESTION = "question";// Table name
 
     // Table Columns names
     private static final String KEY_ID = "_id";
     private static final String KEY_QUESTION = "question";
     private static final String KEY_ANSWER = "answer"; //correct option
-    private static final String KEY_OPT1= "opta"; //option a
-    private static final String KEY_OPT2= "optb"; //option b
-    private static final String KEY_OPT3= "optc"; //option c
-    private static final String KEY_OPT4= "optd"; //option d
+    private static final String KEY_OPTA= "opta"; //option a
+    private static final String KEY_OPTB= "optb"; //option b
+    private static final String KEY_OPTC= "optc"; //option c
+    private static final String KEY_OPTD= "optd"; //option d
 
     private SQLiteDatabase myDatabase;
 
@@ -42,35 +37,19 @@ public class DbHelper extends SQLiteOpenHelper {
         myDatabase=db;
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_QUESTION + " ( "
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_QUESTION
-                + " TEXT, " + KEY_ANSWER+ " TEXT, "+KEY_OPT1 +" TEXT, "
-                +KEY_OPT2 +" TEXT, "+KEY_OPT3 +" TEXT, "+KEY_OPT4 +" TEXT )";
+                + " TEXT, " + KEY_ANSWER+ " TEXT, "+KEY_OPTA +" TEXT, "
+                +KEY_OPTB +" TEXT, "+KEY_OPTC +" TEXT, "+KEY_OPTD+" TEXT)";
 
         db.execSQL(sql);
 
-        addQuestions();
+        LevelOneQs.addQuestions(this);
 
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION);
-
-        // Create tables again
-        onCreate(db);
-    }
-
-    public int rowCount()
+   /* private void addQuestions()
     {
-        int row=0;
-        String selectQuery = "SELECT  * FROM " + TABLE_QUESTION;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        row=cursor.getCount();
-        return row;
-    }
+        //format is question-option1-option2-option3-option4-answer
 
-    private void addQuestions() {
         Question q1 = new Question("How many dragons does Daenery’s have", "0", "4", "2","3", "3");
         this.addQuestion(q1);
         Question q2 = new Question("What is the sigil of house Lannister","Rose","Lion","Stag","Mockingbird", "Lion");
@@ -113,17 +92,38 @@ public class DbHelper extends SQLiteOpenHelper {
         this.addQuestion(q20);
         Question q21 = new Question("Who pushes Bran from the tower at Winterfell?","Jamie Lannister","Cersei Lannister","Maester Luwin","Sansa Stark", "Jamie Lannister");
         this.addQuestion(q21);
+    }*/
+
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION);
+
+        // Create tables again
+        onCreate(db);
     }
+
+    public int rowCount()
+    {
+        int row=0;
+        String selectQuery = "SELECT  * FROM " + TABLE_QUESTION;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        row=cursor.getCount();
+        return row;
+    }
+
 
     public void addQuestion(Question quest) {
 
         ContentValues values = new ContentValues();
         values.put(KEY_QUESTION, quest.getQuestion());
         values.put(KEY_ANSWER, quest.getAnswer());
-        values.put(KEY_OPT1, quest.getOption1());
-        values.put(KEY_OPT2, quest.getOption2());
-        values.put(KEY_OPT3, quest.getOption3());
-        values.put(KEY_OPT4, quest.getOption4());
+        values.put(KEY_OPTA, quest.getOption1());
+        values.put(KEY_OPTB, quest.getOption2());
+        values.put(KEY_OPTC, quest.getOption3());
+        values.put(KEY_OPTD, quest.getOption4());
 
         // Inserting Row
         myDatabase.insert(TABLE_QUESTION, null, values);
