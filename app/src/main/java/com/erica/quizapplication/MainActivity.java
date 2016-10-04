@@ -1,16 +1,11 @@
 package com.erica.quizapplication;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -32,7 +27,7 @@ public class MainActivity extends Activity {
         btn1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this, LevelTwoActivity.class);
+                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
                 Bundle intent2 = new Bundle();
                 //intent2.putInt("level", level); //Your score
                 intent.putExtras(intent2); //Put your score to your next Intent

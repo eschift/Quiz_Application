@@ -12,7 +12,9 @@
         android:id="@+id/questionText"
         android:layout_above="@+id/ans1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="61dp" />
+        android:layout_marginBottom="61dp"
+        android:textAlignment="center"
+        android:gravity="center" />
 
     <Button
         android:layout_width="fill_parent"

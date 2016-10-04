@@ -35,14 +35,7 @@
         android:text="next level"
         android:visibility="invisible"/>
 
-    <TextView
-        android:id="@+id/level"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:text="Large Text"
-        android:layout_marginTop="50dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 
 
 

@@ -7,10 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 
@@ -47,8 +45,14 @@ public class ResultActivity extends Activity {
             nextLevel.setVisibility(View.VISIBLE);
             restart = (Button) findViewById(R.id.btn);
 
-            thisLevel++;
-            passedLevels++;
+            if (thisLevel <= 7){
+                thisLevel++;
+            }
+
+            if (passedLevels <= 7){
+                passedLevels++;
+
+            }
 
             SharedPreferences.Editor editor = levelData.edit();
             editor.putInt("currentLevel", thisLevel);
@@ -56,11 +60,17 @@ public class ResultActivity extends Activity {
             editor.commit();
         }
 
+        if(thisLevel==8){
+            nextLevel.setVisibility(View.GONE);
+            Intent i = new Intent(this, GameOver.class);
+            startActivity(i);
+        }
+
     }
 
     public void nextLevel(View view){
 
-        Intent intent2 = new Intent(this, LevelTwoActivity.class);
+        Intent intent2 = new Intent(this, QuizActivity.class);
         Bundle b = new Bundle();
         // b.putInt("level", (level)); //Your score
         intent2.putExtras(b); //Put your score to your next Intent
@@ -70,7 +80,7 @@ public class ResultActivity extends Activity {
     }
 
     public void restart(View view){
-        Intent intent = new Intent(this, LevelTwoActivity.class);
+        Intent intent = new Intent(this, QuizActivity.class);
         startActivity(intent);
     }
 
