@@ -21,7 +21,7 @@ public class QuizActivity extends Activity{
     int score, round;
     int ID;
     int level;
-    int thisLevel;
+    int thisLevel, passedLevels;
     Question currentQuestion;
     TextView txtQuestion, times, scored, rounds;
     Button btn1, btn2, btn3, btn4;
@@ -40,7 +40,7 @@ public class QuizActivity extends Activity{
 
         levelData = getSharedPreferences(filename, 0);
         thisLevel = levelData.getInt("currentLevel", 0);
-        int passedLevels = levelData.getInt("unlockedLevels", 0);
+        passedLevels = levelData.getInt("unlockedLevels", 0);
 
         if(thisLevel == 1){
             ID = 0;
@@ -67,6 +67,9 @@ public class QuizActivity extends Activity{
 
         TextView textLevel = (TextView) findViewById(R.id.textLevel);
         textLevel.setText("Level: " + thisLevel); //if used without text use: textLevel.setText(String.valueOf(thisLevel));
+
+        TextView passed = (TextView) findViewById(R.id.textPast);
+        passed.setText("Passed Levels: " + passedLevels);
 
         //Initialize the database
         final DbHelper dbHelper=new DbHelper(this);

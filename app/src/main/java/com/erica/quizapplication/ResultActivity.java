@@ -3,6 +3,7 @@ package com.erica.quizapplication;
 /**
  * Created by schif_000 on 2/10/2016.
  */
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,9 +20,12 @@ public class ResultActivity extends Activity {
 
     Button nextLevel;
     Button restart;
+   // Button exitButton;
+    //Button homeButton;
     int level;
     int thisLevel;
     int passedLevels;
+    TextView endGame;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -40,6 +44,14 @@ public class ResultActivity extends Activity {
         textResult.setText("Your score is " + score + "/7");
         level++;
 
+        if(score == 7 && passedLevels < thisLevel && passedLevels <= 7){
+            passedLevels++;
+            SharedPreferences.Editor editor = levelData.edit();
+            // editor.putInt("currentLevel", thisLevel);
+            editor.putInt("unlockedLevels", passedLevels);
+            editor.commit();
+        }
+
         if(score == 7){
             nextLevel = (Button) findViewById(R.id.btn2);
             nextLevel.setVisibility(View.VISIBLE);
@@ -49,24 +61,32 @@ public class ResultActivity extends Activity {
                 thisLevel++;
             }
 
-            if (passedLevels <= 7){
-                passedLevels++;
-
-            }
-
             SharedPreferences.Editor editor = levelData.edit();
             editor.putInt("currentLevel", thisLevel);
-            editor.putInt("unlockedLevels", passedLevels);
+           // editor.putInt("unlockedLevels", passedLevels);
             editor.commit();
         }
 
+
         if(thisLevel==8){
             nextLevel.setVisibility(View.GONE);
-            Intent i = new Intent(this, GameOver.class);
-            startActivity(i);
+            endGame = (TextView) findViewById(R.id.endGameText);
+            endGame.setVisibility(View.VISIBLE);
         }
 
     }
+
+    public void exitApp(View view){
+        finish();
+        System.exit(0);
+    }
+
+    public void returnHome(View view){
+        Intent i = new Intent(this, LevelActivity.class);
+        startActivity(i);
+    }
+
+
 
     public void nextLevel(View view){
 

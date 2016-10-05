@@ -7,27 +7,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
+/**
+ * Created by schif_000 on 5/10/2016.
+ */
 public class MainActivity extends Activity {
 
+    Button start;
+    int thisLevel;
+    int passedLevels;
     public static final String filename = "LEVEL_DATA";
     SharedPreferences levelData;
-    // int level;
-    Button btn1;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
         levelData = getSharedPreferences(filename, 0);
+        thisLevel = levelData.getInt("currentLevel", 0);
+        passedLevels = levelData.getInt("unlockedLevels", 0);
 
-        btn1 = (Button) findViewById(R.id.startButton);
+        start = (Button) findViewById(R.id.start);
 
-        btn1.setOnClickListener(new View.OnClickListener(){
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LevelActivity.class);
                 Bundle intent2 = new Bundle();
                 //intent2.putInt("level", level); //Your score
                 intent.putExtras(intent2); //Put your score to your next Intent
@@ -36,12 +40,10 @@ public class MainActivity extends Activity {
 
                 SharedPreferences.Editor editor = levelData.edit();
                 editor.putInt("currentLevel", 1);
-                editor.putInt("unlockedLevels", 1);
+                editor.putInt("unlockedLevels", 0); // may need o set to passedLevels to persist between sessions
                 editor.commit();
             }
         });
-
-
     }
 
 }

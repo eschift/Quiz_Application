@@ -126,5 +126,16 @@
         android:text="Large Text"
         android:id="@+id/textLevel"
         android:layout_below="@+id/ans4"
-        android:layout_centerHorizontal="true" />
+        android:layout_toRightOf="@+id/score"
+        android:layout_toEndOf="@+id/score" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textPast"
+        android:layout_alignTop="@+id/textLevel"
+        android:layout_toLeftOf="@+id/textView6"
+        android:layout_toStartOf="@+id/textView6" />
 </RelativeLayout>
